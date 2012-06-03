@@ -5,7 +5,7 @@ Spyglass is a Clojure client for Memcached built on top of [SpyMemcached](http:/
 
 ## This is a Work In Progress
 
-Spyglass is *very* young and incomplete. Nothing to see here yet, move along.
+Spyglass is *very* young and still not complete. Nothing to see here yet, move along.
 
 
 ## Continuous Integration

@@ -1,6 +1,8 @@
 (ns clojurewerkz.spyglass.test.common-test
   (:require [clojurewerkz.spyglass.client  :as c])
-  (:use clojure.test))
+  (:use clojure.test)
+  (:import java.util.UUID
+           net.spy.memcached.transcoders.LongTranscoder))
 
 
 (def ci? (System/getenv "CI"))
@@ -155,3 +157,10 @@
       (c/set bc "key2" 20 "b-value")
       (c/set bc "key3" 20 "c-value")
       (is (= {"key3" "c-value", "key2" "b-value", "key1" "a-value"} (c/get-multi bc ["key1" "key2" "key3"]))))))
+
+
+(deftest   test-incr
+  (testing "a case when a value does not exist (and is not initialized)"
+    (is (= -1 (c/incr tc (str (UUID/randomUUID)) 77))))
+  (testing "a case when a value does not exist (and IS initialized)"
+    (is (= 88 (c/incr tc (str (UUID/randomUUID)) 77 88)))))

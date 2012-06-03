@@ -30,8 +30,11 @@
 
 (defn set
   "Set an object in the cache (using the default transcoder) regardless of any existing value."
-  [^MemcachedClient client ^String key ^long expiration value]
-  (.set client key expiration value))
+  ([^MemcachedClient client ^String key ^long expiration value]
+     (.set client key expiration value))
+  ([^MemcachedClient client ^String key expiration value transcoder]
+     (.set client key expiration value transcoder))
+  )
 
 (defn get
   "Get with a single key and decode using the default transcoder."
@@ -65,14 +68,50 @@
   [^MemcachedClient client ^String key ^long expiration value]
   (.replace client key expiration value))
 
-;; TODO: incr
-;; TODO: decr
+(defn incr
+  "Increment the given key by the given amount. Returns -1 if the value is missing."
+  ([^MemcachedClient client ^String key ^long by]
+     (.incr client key by))
+  ([^MemcachedClient client ^String key ^long by ^long default]
+     (.incr client key by default))
+  ([^MemcachedClient client ^String key by default expiration]
+     (.incr client key by default expiration)))
+
+(defn decr
+  "Decrement the given key by the given amount. Returns -1 if the value is missing."
+  ([^MemcachedClient client ^String key ^long by]
+     (.decr client key by))
+  ([^MemcachedClient client ^String key ^long by ^long default]
+     (.decr client key by default))
+  ([^MemcachedClient client ^String key by default expiration]
+     (.decr client key by default expiration)))
+
+(defn gets
+  ([^MemcachedClient client ^String key]
+     (.gets client key))
+  ([^MemcachedClient client ^String key transcoder]
+     (.gets client key transcoder)))
+
+(defn cas
+  "Perform a synchronous CAS (compare-and-swap) operation."
+  ([^MemcachedClient client ^String key ^long cas-id value]
+     (.cas client key cas-id value))
+  ([^MemcachedClient client ^String key cas-id value transcoder]
+     (.cas client key cas-id value transcoder)))
+
 ;; TODO: cas
 
 (defn get-versions
   "Get the versions of all of the connected Memcached instances."
   [^MemcachedClient client]
   (into {} (.getVersions client)))
+
+(defn get-stats
+  "Returns stats from all of the connections."
+  ([^MemcachedClient client]
+     (into {} (.getStats client)))
+  ([^MemcachedClient client ^String stat]
+     (into {} (.getStats client stat))))
 
 (defn shutdown
   "Shuts down the client. One-arity forces immediate shutdown. Three-arity shuts down gracefully
