@@ -8,6 +8,15 @@ Spyglass is a Clojure client for Memcached built on top of [SpyMemcached](http:/
 Spyglass is *very* young and incomplete. Nothing to see here yet, move along.
 
 
+## Continuous Integration
+
+[![Continuous Integration status](https://secure.travis-ci.org/clojurewerkz/spyglass.png)](http://travis-ci.org/clojurewerkz/spyglass)
+
+
+CI is hosted by [travis-ci.org](http://travis-ci.org)
+
+
+
 ## Development
 
 Spyglass uses [Leiningen 2](https://github.com/technomancy/leiningen/blob/master/doc/TUTORIAL.md). Make sure you have it installed and then run tests against
