@@ -1,11 +1,56 @@
 # What is Spyglass
 
-Spyglass is a Clojure client for Memcached built on top of [SpyMemcached](http://code.google.com/p/spymemcached/)
+Spyglass is a very fast Clojure client for Memcached built on top of [SpyMemcached](http://code.google.com/p/spymemcached/)
 
 
-## This is a Work In Progress
 
-Spyglass is *very* young and still not complete. Nothing to see here yet, move along.
+## Community
+
+[Spyglass has a mailing list](https://groups.google.com/forum/#!forum/clojure-memcached). Feel free to join it and ask any questions you may have.
+
+To subscribe for announcements of releases, important changes and so on, please follow [@ClojureWerkz](https://twitter.com/#!/clojurewerkz) on Twitter.
+
+
+
+## Project Maturity
+
+Spyglass is *very* young and still not 100% feature complete. It is, however, built on a very solid Java client, [SpyMemcached](https://github.com/dustin/java-memcached-client) and
+has good test coverage (using adapted [Memcached client test suite](https://github.com/dustin/memcached-test/blob/master/testClient.py) by Dustin Sallings).
+
+As such, you can confidently use it, although it is not yet ready for 1.0 or even RC releases.
+
+
+
+## Artifacts
+
+### The Most Recent Release
+
+With Leiningen:
+
+    [clojurewerkz/spyglass "1.0.0-beta1"]
+
+
+With Maven:
+
+    <dependency>
+      <groupId>clojurewerkz</groupId>
+      <artifactId>spyglass</artifactId>
+      <version>1.0.0-beta1</version>
+    </dependency>
+
+
+
+## Documentation & Examples
+
+Our documentation site is not yet live, sorry. Our [test suite](https://github.com/clojurewerkz/spyglass/tree/master/test/) has plenty of code examples.
+
+
+
+## Supported Clojure versions
+
+Monger is built from the ground up for Clojure 1.3 and up.
+
+
 
 
 ## Continuous Integration
