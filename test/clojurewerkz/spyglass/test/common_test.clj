@@ -166,7 +166,7 @@
     (is (= 88 (c/incr tc (str (UUID/randomUUID)) 77 88)))))
 
 
-(deftest ^:focus test-cas
+(deftest test-cas
   (let [key (str (UUID/randomUUID))
         val 123]
     (c/set tc key 60 val)
@@ -177,7 +177,7 @@
       (is (= :exists (c/cas tc key cid1 234)))
       (is (= :ok     (c/cas tc key cid2 val))))))
 
-(deftest ^:focus test-async-cas
+(deftest test-async-cas
   (let [key (str (UUID/randomUUID))
         val 123]
     (c/set tc key 60 val)
