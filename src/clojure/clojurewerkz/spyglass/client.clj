@@ -1,6 +1,7 @@
 (ns clojurewerkz.spyglass.client
   (:refer-clojure :exclude [set get])
-  (:import [net.spy.memcached MemcachedClient DefaultConnectionFactory BinaryConnectionFactory AddrUtil]))
+  (:import [net.spy.memcached MemcachedClient DefaultConnectionFactory BinaryConnectionFactory AddrUtil]
+           net.spy.memcached.transcoders.Transcoder))
 
 
 
@@ -37,14 +38,34 @@
   )
 
 (defn get
-  "Get with a single key and decode using the default transcoder."
-  [^MemcachedClient client ^String key]
-  (.get client key))
+  "Get with a single key."
+  ([^MemcachedClient client ^String key]
+     (.get client key))
+  ([^MemcachedClient client ^String key ^Transcoder transcoder]
+     (.get client key transcoder)))
+
+(defn ^java.util.concurrent.Future
+  async-get
+  "Get the given key asynchronously"
+  ([^MemcachedClient client ^String key]
+     (.asyncGet client key))
+  ([^MemcachedClient client ^String key ^Transcoder transcoder]
+     (.asyncGet client key transcoder)))
 
 (defn get-multi
-  "Get the values for multiple keys from the cache. Returns a map of results."
-  [^MemcachedClient client ^java.util.Collection keys]
-  (into {} (.getBulk client keys)))
+  "Get the values for multiple keys from the cache. Returns a future that will return a mutable map of results."
+  ([^MemcachedClient client ^java.util.Collection keys]
+     (into {} (.getBulk client keys)))
+  ([^MemcachedClient client ^java.util.Collection keys ^Transcoder transcoder]
+     (into {} (.getBulk client keys transcoder))))
+
+(defn ^java.util.concurrent.Future
+  async-get-multi
+  "Get the values for multiple keys from the cache. Returns a future that will return a map of results."
+  ([^MemcachedClient client ^java.util.Collection keys]
+     (.asyncGetBulk client keys))
+  ([^MemcachedClient client ^java.util.Collection keys ^Transcoder transcoder]
+     (.asyncGetBulk client keys transcoder)))
 
 (defn delete
   "Delete the given key from the cache."
