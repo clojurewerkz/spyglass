@@ -44,6 +44,13 @@
   ([^MemcachedClient client ^String key ^Transcoder transcoder]
      (.get client key transcoder)))
 
+(defn get-and-touch
+  "Get a single key and reset its expiration."
+  ([^MemcachedClient client ^String key ^long expiration]
+     (.getAndTouch client key expiration))
+  ([^MemcachedClient client ^String key ^long expiration ^Transcoder transcoder]
+     (.getAndTouch client key expiration transcoder)))
+
 (defn ^java.util.concurrent.Future
   async-get
   "Get the given key asynchronously"
