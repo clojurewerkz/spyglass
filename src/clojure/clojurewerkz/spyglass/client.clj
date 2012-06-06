@@ -34,8 +34,7 @@
   ([^MemcachedClient client ^String key ^long expiration value]
      (.set client key expiration value))
   ([^MemcachedClient client ^String key expiration value transcoder]
-     (.set client key expiration value transcoder))
-  )
+     (.set client key expiration value transcoder)))
 
 (defn get
   "Get with a single key."
@@ -116,18 +115,29 @@
 
 (defn gets
   ([^MemcachedClient client ^String key]
-     (.gets client key))
+     (let [response (.gets client key)]
+       {:value (.getValue response) :cas (.getCas response)}))
   ([^MemcachedClient client ^String key transcoder]
-     (.gets client key transcoder)))
+     (let [response (.gets client key transcoder)]
+       {:value (.getValue response) :cas (.getCas response)})))
 
 (defn cas
   "Perform a synchronous CAS (compare-and-swap) operation."
   ([^MemcachedClient client ^String key ^long cas-id value]
-     (.cas client key cas-id value))
+     (keyword (.toLowerCase (str (.cas client key cas-id value)))))
   ([^MemcachedClient client ^String key cas-id value transcoder]
-     (.cas client key cas-id value transcoder)))
+     (keyword (.toLowerCase (str (.cas client key cas-id value transcoder)))))
+  ([^MemcachedClient client ^String key cas-id expiration value transcoder]
+     (keyword (.toLowerCase (str (.cas client key cas-id expiration value transcoder))))))
 
-;; TODO: cas
+(defn async-cas
+  "Perform an asynchronous CAS (compare-and-swap) operation."
+  ([^MemcachedClient client ^String key ^long cas-id value]
+     (.asyncCAS client key cas-id value))
+  ([^MemcachedClient client ^String key cas-id value transcoder]
+     (.asyncCAS client key cas-id value transcoder))
+  ([^MemcachedClient client ^String key cas-id expiration value transcoder]
+     (.asyncCAS client key cas-id expiration value transcoder)))
 
 (defn get-versions
   "Get the versions of all of the connected Memcached instances."

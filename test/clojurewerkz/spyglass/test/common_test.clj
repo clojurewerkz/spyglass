@@ -164,3 +164,26 @@
     (is (= -1 (c/incr tc (str (UUID/randomUUID)) 77))))
   (testing "a case when a value does not exist (and IS initialized)"
     (is (= 88 (c/incr tc (str (UUID/randomUUID)) 77 88)))))
+
+
+(deftest ^:focus test-cas
+  (let [key (str (UUID/randomUUID))
+        val 123]
+    (c/set tc key 60 val)
+    (let [cid1 (:cas (c/gets tc key))
+          _    (c/set tc key 60 889)
+          cid2 (:cas (c/gets tc key))]
+      (is (= :exists (c/cas tc key cid1 val)))
+      (is (= :exists (c/cas tc key cid1 234)))
+      (is (= :ok     (c/cas tc key cid2 val))))))
+
+(deftest ^:focus test-async-cas
+  (let [key (str (UUID/randomUUID))
+        val 123]
+    (c/set tc key 60 val)
+    (let [cid1 (:cas (c/gets tc key))
+          _    (c/set tc key 60 889)
+          cid2 (:cas (c/gets tc key))]
+      (is (= "EXISTS" (str (.get (c/async-cas tc key cid1 val)))))
+      (is (= "EXISTS" (str (.get (c/async-cas tc key cid1 234)))))
+      (is (= "OK"     (str (.get (c/async-cas tc key cid2 val))))))))
