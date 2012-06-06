@@ -48,7 +48,7 @@ Our documentation site is not yet live, sorry. Our [test suite](https://github.c
 
 ## Supported Clojure versions
 
-Monger is built from the ground up for Clojure 1.3 and up.
+Spyglass is built from the ground up for Clojure 1.3 and up.
 
 
 
@@ -75,6 +75,6 @@ a pull request on Github.
 
 ## License
 
-Copyright (C) 2012 Michael S. Klishin
+Copyright (C) 2012 Michael S. Klishin, Alex Petrov
 
 Distributed under the Eclipse Public License, the same as Clojure.
