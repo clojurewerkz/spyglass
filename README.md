@@ -27,7 +27,7 @@ As such, you can confidently use it, although it is not yet ready for 1.0 or eve
 
 With Leiningen:
 
-    [clojurewerkz/spyglass "1.0.0-beta1"]
+    [clojurewerkz/spyglass "1.0.0-rc1"]
 
 
 With Maven:
@@ -35,14 +35,16 @@ With Maven:
     <dependency>
       <groupId>clojurewerkz</groupId>
       <artifactId>spyglass</artifactId>
-      <version>1.0.0-beta1</version>
+      <version>1.0.0-rc1</version>
     </dependency>
 
 
 
 ## Documentation & Examples
 
-Our documentation site is not yet live, sorry. Our [test suite](https://github.com/clojurewerkz/spyglass/tree/master/test/) has plenty of code examples.
+Spyglass has a [documentation site at clojurememcached.info](http://clojurememcached.info).
+
+Our [test suite](https://github.com/clojurewerkz/spyglass/tree/master/test/) has plenty of code examples, too.
 
 
 
