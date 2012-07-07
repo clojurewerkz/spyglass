@@ -111,7 +111,7 @@
       (c/set tc "x1" 19 v)
       (is (= v (c/get tc "x1")))
       (is (nil? (c/get tc "x2")))
-      (is (false? (.get (c/add tc "x1" 25 v))))
+      (is (false? @(c/add tc "x1" 25 v)))
       (is (c/add tc "x2" 25 v))
       (is (c/get tc "x1"))
       (is (c/get tc "x2"))))
@@ -121,7 +121,7 @@
         (c/set bc "z1" 19 v)
         (is (= v (c/get bc "z1")))
         (is (nil? (c/get bc "z2")))
-        (is (false? (.get (c/add bc "z1" 25 v))))
+        (is (false? @(c/add bc "z1" 25 v)))
         (is (c/add bc "z2" 25 v))
         (is (c/get bc "z1"))
         (is (c/get bc "z2"))))))
@@ -132,16 +132,16 @@
     (let [v "some-value"]
       (c/set tc "y1" 19 v)
       (is (= v (c/get tc "y1")))
-      (is (false? (.get (c/replace tc "z1" 25 v))))
-      (is (.get (c/replace tc "y1" 25 "tc-new-value")))
+      (is (false? @(c/replace tc "z1" 25 v)))
+      (is @(c/replace tc "y1" 25 "tc-new-value"))
       (is (= "tc-new-value" (c/get tc "y1")))))
   (when-not ci?
     (testing "with the binary protocol"
       (let [v "some-value"]
         (c/set bc "y1" 19 v)
         (is (= v (c/get bc "y1")))
-        (is (false? (.get (c/replace bc "z1" 25 v))))
-        (is (.get (c/replace bc "y1" 25 "bc-new-value")))
+        (is (false? @(c/replace bc "z1" 25 v)))
+        (is @(c/replace bc "y1" 25 "bc-new-value"))
         (is (= "bc-new-value" (c/get bc "y1")))))))
 
 
@@ -184,6 +184,6 @@
     (let [cid1 (:cas (c/gets tc key))
           _    (c/set tc key 60 889)
           cid2 (:cas (c/gets tc key))]
-      (is (= "EXISTS" (str (.get (c/async-cas tc key cid1 val)))))
-      (is (= "EXISTS" (str (.get (c/async-cas tc key cid1 234)))))
-      (is (= "OK"     (str (.get (c/async-cas tc key cid2 val))))))))
+      (is (= "EXISTS" (str @(c/async-cas tc key cid1 val))))
+      (is (= "EXISTS" (str @(c/async-cas tc key cid1 234))))
+      (is (= "OK"     (str @(c/async-cas tc key cid2 val)))))))

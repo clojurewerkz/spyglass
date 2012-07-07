@@ -13,7 +13,8 @@
                  "sonatype-snapshots" {:url "http://oss.sonatype.org/content/repositories/snapshots"
                                        :snapshots true
                                        :releases {:checksum :fail :update :always}}}
-  :source-paths ["src/clojure"]
+  :source-paths      ["src/clojure"]
+  :java-source-paths ["src/java"]
   :warn-on-reflection true
   :profiles       {:1.4 {:dependencies [[org.clojure/clojure "1.4.0"]]}
                    :1.5 {:dependencies [[org.clojure/clojure "1.5.0-master-SNAPSHOT"]]}}
