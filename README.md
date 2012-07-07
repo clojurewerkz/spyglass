@@ -14,10 +14,10 @@ To subscribe for announcements of releases, important changes and so on, please 
 
 ## Project Maturity
 
-Spyglass is *very* young and still not 100% feature complete. It is, however, built on a very solid Java client, [SpyMemcached](http://code.google.com/p/spymemcached/) and
+Spyglass is young and not technically 100% feature complete. It is, however, built on a very solid Java client, [SpyMemcached](http://code.google.com/p/spymemcached/) and
 has good test coverage (using adapted [Memcached client test suite](https://github.com/dustin/memcached-test/blob/master/testClient.py) by Dustin Sallings).
 
-As such, you can confidently use it, although it is not yet ready for 1.0 or even RC releases.
+As such, you can confidently use it, the API is small and very much locked down.
 
 
 
@@ -27,7 +27,7 @@ As such, you can confidently use it, although it is not yet ready for 1.0 or eve
 
 With Leiningen:
 
-    [clojurewerkz/spyglass "1.0.0-rc1"]
+    [clojurewerkz/spyglass "1.0.0-rc2"]
 
 
 With Maven:
@@ -35,7 +35,7 @@ With Maven:
     <dependency>
       <groupId>clojurewerkz</groupId>
       <artifactId>spyglass</artifactId>
-      <version>1.0.0-rc1</version>
+      <version>1.0.0-rc2</version>
     </dependency>
 
 
