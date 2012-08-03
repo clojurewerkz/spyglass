@@ -1,18 +1,12 @@
 language: clojure
 lein: lein2
 env:
-  - CB_URL="http://packages.couchbase.com/releases/1.8.0/couchbase-server-community_x86_1.8.0.deb" CB_DEB="couchbase-server-community_x86_1.8.0.deb" CB_VER="1.8.0" CB_CONFIG_CMD=""
-  - CB_URL="http://builds.hq.northscale.net/latestbuilds/couchbase-server-community_x86_1.8.1-916-rel.deb" CB_DEB="couchbase-server-community_x86_1.8.1-916-rel.deb" CB_VER="1.8.1" CB_CONFIG_CMD="/opt/couchbase/bin/cbflushctl localhost:11210 set flushall_enabled true"
-  - CB_URL="http://packages.couchbase.com/builds/1482/couchbase-server-community_x86_2.0.0-1482-rel.deb" CB_DEB="couchbase-server-community_x86_2.0.0-1482-rel.deb" CB_VER="2.0.0" CB_CONFIG_CMD="/opt/couchbase/bin/cbepctl localhost:11210 set flush_param flushall_enabled true"
+  - SUT=couchbase CB_URL="http://packages.couchbase.com/releases/1.8.0/couchbase-server-community_x86_1.8.0.deb" CB_DEB="couchbase-server-community_x86_1.8.0.deb" CB_VER="1.8.0" CB_CONFIG_CMD=""
+  - SUT=couchbase CB_URL="http://builds.hq.northscale.net/latestbuilds/couchbase-server-community_x86_1.8.1-916-rel.deb" CB_DEB="couchbase-server-community_x86_1.8.1-916-rel.deb" CB_VER="1.8.1" CB_CONFIG_CMD="/opt/couchbase/bin/cbflushctl localhost:11210 set flushall_enabled true"
+  - SUT=couchbase CB_URL="http://packages.couchbase.com/builds/1482/couchbase-server-community_x86_2.0.0-1482-rel.deb" CB_DEB="couchbase-server-community_x86_2.0.0-1482-rel.deb" CB_VER="2.0.0" CB_CONFIG_CMD="/opt/couchbase/bin/cbepctl localhost:11210 set flush_param flushall_enabled true"
+  - SUT=memcached
 before_script:
-  - sudo service memcached stop
-  - sudo cp ./bin/ci/conf/couchbase.conf /etc/security/limits.d/
-  - sudo chmod 644 /etc/security/limits.d/couchbase.conf
-  - wget -q $CB_URL
-  - sudo dpkg -i $CB_DEB
-  - sudo chmod a+x ./bin/ci/scripts/cluster_connect
-  - ./bin/ci/scripts/cluster_connect -n 1
-  - $CB_CONFIG_CMD
+  - if [[ "$STU" == "couchbase" ]]; then ./ci/scripts/setup_couchbase.sh; else ./ci/scripts/setup_memcached.sh; fi
 script: lein2 all test
 jdk:
   - openjdk6
