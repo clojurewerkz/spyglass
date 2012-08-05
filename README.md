@@ -27,7 +27,7 @@ As such, you can confidently use it, the API is small and very much locked down.
 
 With Leiningen:
 
-    [clojurewerkz/spyglass "1.0.0-rc2"]
+    [clojurewerkz/spyglass "1.0.0"]
 
 
 With Maven:
@@ -35,7 +35,7 @@ With Maven:
     <dependency>
       <groupId>clojurewerkz</groupId>
       <artifactId>spyglass</artifactId>
-      <version>1.0.0-rc2</version>
+      <version>1.0.0</version>
     </dependency>
 
 
