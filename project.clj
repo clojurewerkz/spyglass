@@ -1,4 +1,4 @@
-(defproject clojurewerkz/spyglass "1.0.0-SNAPSHOT"
+(defproject clojurewerkz/spyglass "1.0.0"
   :description "A Clojure client for Memcached implemented as a very thin layer on top of SpyMemcached"
   :url "http://github.com/clojurewerkz/spyglass"
   :license {:name "Eclipse Public License"

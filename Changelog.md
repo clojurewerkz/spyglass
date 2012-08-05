@@ -1,6 +1,12 @@
-## Changes between 1.0.0-rc2 and 1.0.0-rc3
+## Changes between 1.0.0-rc2 and 1.0.0
 
-No changes yet.
+### Documentation Improvements
+
+[Documentation guides](http://clojurememcached.info) were improved.
+
+### Continuous Integration Against Couchbase
+
+We now run [Continuous Integration](http://travis-ci.org/clojurewerkz/spyglass) against several versions of Couchbase Server.
 
 
 ## Changes between 1.0.0-rc1 and 1.0.0-rc2
