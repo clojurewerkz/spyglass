@@ -14,10 +14,10 @@ To subscribe for announcements of releases, important changes and so on, please 
 
 ## Project Maturity
 
-Spyglass is young and not technically 100% feature complete. It is, however, built on a very solid Java client, [SpyMemcached](http://code.google.com/p/spymemcached/) and
+Spyglass is no longer a young project. It is almost 100% feature complete. Built on a very solid Java client, [SpyMemcached](http://code.google.com/p/spymemcached/) and
 has good test coverage (using adapted [Memcached client test suite](https://github.com/dustin/memcached-test/blob/master/testClient.py) by Dustin Sallings).
 
-As such, you can confidently use it, the API is small and very much locked down.
+As such, you can confidently use it, the API is small and locked down.
 
 
 
