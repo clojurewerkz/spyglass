@@ -1,6 +1,13 @@
-## Changes between 1.0.0 and 1.0.1
+## Changes between 1.0.1 and 1.0.2
 
 No changes yet.
+
+
+## Changes between 1.0.0 and 1.0.1
+
+### Recompiled for JDK 6
+
+Spyglass 1.0.1 is compiled for JDK 6.
 
 
 ## Changes between 1.0.0-rc2 and 1.0.0
