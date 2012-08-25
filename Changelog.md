@@ -1,5 +1,12 @@
 ## Changes between 1.0.0 and 1.1.0
 
+### Improved Couchbase Support
+
+`clojurewerkz.spyglass.couchbase/connection` is a new function that connects to Couchbase with the given
+bucket and credentials. It returns a client that regular `clojurewerkz.spyglass.memcached` functions can
+use.
+
+
 ### Clojure 1.4 By Default
 
 Spyglass now depends on `org.clojure/clojure` version `1.4.0`. It is still compatible with Clojure 1.3 and if your `project.clj` depends
