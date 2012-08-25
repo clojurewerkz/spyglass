@@ -1,5 +1,13 @@
 ## Changes between 1.0.0 and 1.1.0
 
+### Clojure 1.4 By Default
+
+Spyglass now depends on `org.clojure/clojure` version `1.4.0`. It is still compatible with Clojure 1.3 and if your `project.clj` depends
+on 1.3, it will be used, but 1.4 is the default now.
+
+We encourage all users to upgrade to 1.4, it is a drop-in replacement for the majority of projects out there.
+
+
 ### Recompiled for JDK 6
 
 Spyglass 1.0.1 is compiled for JDK 6.
