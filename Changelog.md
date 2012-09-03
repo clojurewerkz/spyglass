@@ -1,5 +1,10 @@
 ## Changes between 1.0.0 and 1.1.0
 
+### SpyMemcached 2.8.4
+
+SpyMemcached has been upgraded to `2.8.4`.
+
+
 ### Improved Couchbase Support
 
 `clojurewerkz.spyglass.couchbase/connection` is a new function that connects to Couchbase with the given
