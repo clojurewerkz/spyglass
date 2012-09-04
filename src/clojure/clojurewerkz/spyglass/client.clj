@@ -1,5 +1,5 @@
 (ns clojurewerkz.spyglass.client
-  (:refer-clojure :exclude [set get])
+  (:refer-clojure :exclude [set get flush])
   (:import [net.spy.memcached MemcachedClient DefaultConnectionFactory BinaryConnectionFactory AddrUtil]
            net.spy.memcached.transcoders.Transcoder
            [clojurewerkz.spyglass OperationFuture BulkGetFuture GetFuture]))
