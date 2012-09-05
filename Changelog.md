@@ -1,6 +1,11 @@
 ## Changes between 1.0.1 and 1.0.2
 
-No changes yet.
+### Fixes an Issue With AOTed Namespaces
+
+An issue with AOTed namespaces failing to compile when they cause `clojurewerkz.spyglass/client` compilation is
+now fixed.
+
+The root cause was shadowing of `clojure.core/replace` which Clojure compiler (gen-class machinery) uses.
 
 
 ## Changes between 1.0.0 and 1.0.1
