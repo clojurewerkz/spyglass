@@ -101,7 +101,6 @@
            "missing-key"
            (str (gensym "missing-key")))))
   (testing "that lookup returns cached values for hits"
-    (let [l (Long/valueOf 10000)
-          c    (sync-spyglass-cache-factory tc 1000 {"skey" "Value"})]
+    (let [c (sync-spyglass-cache-factory tc 1000 {"skey" "Value"})]
       (are [k v] (is (= v (lookup c k)))
            "skey" "Value"))))
