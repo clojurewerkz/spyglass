@@ -12,6 +12,8 @@ jdk:
   - openjdk6
   - openjdk7
   - oraclejdk7
+services:
+  - memcached
 branches:
   only:
     - master
