@@ -20,7 +20,9 @@
   :warn-on-reflection true
   :profiles       {:1.3 {:dependencies [[org.clojure/clojure "1.3.0"]]}
                    :1.5 {:dependencies [[org.clojure/clojure "1.5.0-master-SNAPSHOT"]]}
-                   :dev {:plugins [[codox "0.6.1"]]
+                   :dev {:resource-paths ["test/resources"]
+                         :dependencies [[org.clojure/core.cache "0.6.2" :exclusions [org.clojure/clojure]]]
+                         :plugins [[codox "0.6.3"]]
                          :codox {:sources ["src/clojure"]
                                  :output-dir "doc/api"}}}
   :aliases        {"all" ["with-profile" "dev:1.3:1.5"]}
