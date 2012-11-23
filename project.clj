@@ -25,7 +25,7 @@
                          :plugins [[codox "0.6.3"]]
                          :codox {:sources ["src/clojure"]
                                  :output-dir "doc/api"}}}
-  :aliases        {"all" ["with-profile" "dev:1.3:1.5"]}
+  :aliases        {"all" ["with-profile" "dev:1.3,dev:1.5,dev"]}
   :test-selectors {:default     (fn [m]
                                   (and (not (:couchbase m))))
                    :focus         :focus
