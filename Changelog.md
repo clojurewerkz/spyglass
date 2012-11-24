@@ -1,5 +1,43 @@
 ## Changes between 1.0.0 and 1.1.0
 
+### Support For Configurable Connections
+
+New functions `clojurewerkz.spyglass.client/text-connection-factory` and
+`clojurewerkz.spyglass.client/bin-connection-factory` provide a Clojuric
+way of instantiating connection factories. Those factories, in turn, can be
+passed to new arities of `clojurewerkz.spyglass.client/text-connection` and
+`clojurewerkz.spyglass.client/bin-connection` to control failure mode,
+default transcoder and so on:
+
+``` clojure
+(ns my.service
+  (:require [clojurewerkz.spyglass.client :as c]))
+
+(c/text-connection "127.0.0.1:11211" (c/text-connection-factory :failure-mode :redistribute))
+```
+
+
+### core.cache Implementation
+
+`clojurewerkz.spyglass.cache` now provides a `clojure.core.cache` implementation on top of
+Memcached:
+
+``` clojure
+(ns my.service
+  (:require [clojurewerkz.spyglass.client :as sg]
+            [clojurewerkz.spyglass.cache  :as sc]
+            [clojure.core.cache           :as cc]))
+
+(let [client (sg/text-connection)
+      cache  (sc/sync-spyglass-cache-factory)]
+      (cc/has? cache "a-key")
+      (cc/lookup cache "a-key"))
+```
+
+`SyncSpyglassCache` uses synchronous operations from `clojurewerkz.spyglass.client`. Asynchronous implementation
+that returns futures will be added in the future.
+
+
 ### SpyMemcached 2.8.4
 
 SpyMemcached has been upgraded to `2.8.4`.

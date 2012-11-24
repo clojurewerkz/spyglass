@@ -1,6 +1,6 @@
 (ns clojurewerkz.spyglass.client
   (:refer-clojure :exclude [set get flush replace])
-  (:import [net.spy.memcached MemcachedClient DefaultConnectionFactory BinaryConnectionFactory AddrUtil]
+  (:import [net.spy.memcached MemcachedClient ConnectionFactory DefaultConnectionFactory BinaryConnectionFactory AddrUtil ConnectionFactoryBuilder FailureMode]
            net.spy.memcached.transcoders.Transcoder
            [clojurewerkz.spyglass OperationFuture BulkGetFuture GetFuture]))
 
@@ -14,6 +14,36 @@
   [^String server-list]
   (AddrUtil/getAddresses server-list))
 
+(defprotocol AsFailureMode
+  (^FailureMode to-failure-mode [input]))
+
+(extend-protocol AsFailureMode
+  FailureMode
+  (to-failure-mode [input]
+    input)
+
+  String
+  (to-failure-mode [input]
+    (case input
+      "redistribute" FailureMode/Redistribute
+      "retry"        FailureMode/Retry
+      "cancel"       FailureMode/Cancel))
+
+  clojure.lang.Named
+  (to-failure-mode [input]
+    (to-failure-mode (name input))))
+
+(defn- customize-factory
+  [^ConnectionFactory cf {:keys [failure-mode transcoder]}]
+  (let [;; Houston, we have a *FactoryFactory here!
+        cfb (ConnectionFactoryBuilder. cf)]
+    (when failure-mode
+      (.setFailureMode cfb (to-failure-mode failure-mode)))
+    (when transcoder
+      (.setTranscoder cfb transcoder))
+    (.build cfb)))
+
+
 
 ;;
 ;; API
@@ -21,13 +51,26 @@
 
 (defn text-connection
   "Returns a new text protocol client that will use the provided list of servers."
-  [^String server-list]
-  (MemcachedClient. (DefaultConnectionFactory.) (servers server-list)))
+  ([^String server-list]
+     (MemcachedClient. (DefaultConnectionFactory.) (servers server-list)))
+  ([^String server-list ^DefaultConnectionFactory cf]
+     (MemcachedClient. cf (servers server-list))))
 
 (defn bin-connection
   "Returns a new binary protocol client that will use the provided list of servers."
-  [^String server-list]
-  (MemcachedClient. (BinaryConnectionFactory.) (servers server-list)))
+  ([^String server-list]
+     (MemcachedClient. (BinaryConnectionFactory.) (servers server-list)))
+  ([^String server-list ^BinaryConnectionFactory cf]
+     (MemcachedClient. cf (servers server-list))))
+
+
+(defn text-connection-factory
+  [& {:as opts}]
+  (customize-factory (DefaultConnectionFactory.) opts))
+
+(defn bin-connection-factory
+  [& {:as opts}]
+  (customize-factory (BinaryConnectionFactory.) opts))
 
 
 (defn ^clojurewerkz.spyglass.OperationFuture flush
