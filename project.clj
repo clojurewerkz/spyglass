@@ -19,7 +19,7 @@
   :javac-options     ["-target" "1.6" "-source" "1.6"]  
   :warn-on-reflection true
   :profiles       {:1.3 {:dependencies [[org.clojure/clojure "1.3.0"]]}
-                   :1.5 {:dependencies [[org.clojure/clojure "1.5.0-master-SNAPSHOT"]]}
+                   :1.5 {:dependencies [[org.clojure/clojure "1.5.0-RC1"]]}
                    :dev {:resource-paths ["test/resources"]
                          :dependencies [[org.clojure/core.cache "0.6.2" :exclusions [org.clojure/clojure]]]
                          :plugins [[codox "0.6.3"]]
