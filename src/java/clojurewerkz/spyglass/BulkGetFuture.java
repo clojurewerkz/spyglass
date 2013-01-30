@@ -1,6 +1,7 @@
 package clojurewerkz.spyglass;
 
 import clojure.lang.IDeref;
+import clojure.lang.IBlockingDeref;
 import net.spy.memcached.ops.OperationStatus;
 
 import java.util.Map;
@@ -10,9 +11,9 @@ import java.util.concurrent.TimeoutException;
 
 /**
  * The same as net.spy.memcached.internal.BulkGetFuture but without the set operations
- * and implements clojure.lang.IDeref.
+ * and implements clojure.lang.IDeref and clojure.lang.IBlockingDeref.
  */
-public class BulkGetFuture implements IDeref {
+public class BulkGetFuture implements IDeref, IBlockingDeref{
   private net.spy.memcached.internal.BulkGetFuture bgf;
 
   public boolean cancel(boolean ign) {
@@ -49,6 +50,19 @@ public class BulkGetFuture implements IDeref {
 
   public BulkGetFuture(net.spy.memcached.internal.BulkGetFuture bgf) {
     this.bgf = bgf;
+  }
+
+  @Override
+  public Object deref(long timeout, Object defaultValue) {
+    try{
+      return get(timeout, TimeUnit.MILLISECONDS);
+    } catch (TimeoutException e) {
+      return defaultValue;
+    } catch (InterruptedException e) {
+      return defaultValue;
+    } catch (ExecutionException e) {
+      return defaultValue;
+    }
   }
 
   @Override
