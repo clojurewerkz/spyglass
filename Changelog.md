@@ -1,5 +1,15 @@
 ## Changes between 1.0.0 and 1.1.0
 
+### Blocking Deref for Futures
+
+Futures returned by async Spyglass operations now implement "blocking dereferencing":
+they can be dereferenced with a timeout and default value, just like futures created
+with `clojure.core/future` and similar.
+
+Contributed by Joseph Wilk.
+
+
+
 ### Support For Configurable Connections
 
 New functions `clojurewerkz.spyglass.client/text-connection-factory` and
