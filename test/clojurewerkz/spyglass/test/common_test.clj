@@ -202,3 +202,13 @@
     (let [cache-future (c/async-get tc key)]
       (is (= 123 (deref cache-future 50 nil))))))
 
+(deftest test-async-bulk-future-being-derefed-with-timeout
+  (let [key (str (UUID/randomUUID))
+        val 123]
+    (c/set tc key 60 val)
+    (let [cid (:cas (c/gets tc key))]
+      (is (= "OK" (str (deref (c/async-cas tc key cid val) 60 nil)))))))
+
+(deftest test-async-flush-with-timeout
+  (let [future (c/flush tc)]
+    (deref future 60 nil)))
