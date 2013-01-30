@@ -187,3 +187,28 @@
       (is (= "EXISTS" (str @(c/async-cas tc key cid1 val))))
       (is (= "EXISTS" (str @(c/async-cas tc key cid1 234))))
       (is (= "OK"     (str @(c/async-cas tc key cid2 val)))))))
+
+(deftest test-get-future-being-derefed-with-timeout-expiring
+  (let [key (str (UUID/randomUUID))
+        val 123]
+    (c/set tc key 60 val)
+    (let [cache-future (c/async-get tc key)]
+      (is (= :fail (deref cache-future 0 :fail))))))
+
+(deftest test-get-future-being-derefed-with-timeout
+  (let [key (str (UUID/randomUUID))
+        val 123]
+    (c/set tc key 60 val)
+    (let [cache-future (c/async-get tc key)]
+      (is (= 123 (deref cache-future 50 nil))))))
+
+(deftest test-bulk-future-being-derefed-with-timeout
+  (let [key (str (UUID/randomUUID))
+        val 123]
+    (c/set tc key 60 val)
+    (let [cid (:cas (c/gets tc key))]
+      (is (= "OK" (str (deref (c/async-cas tc key cid val) 60 nil)))))))
+
+(deftest test-operation-future-being-derefed-with-timeout
+  (let [future (c/flush tc)]
+    (deref future 60 nil)))
