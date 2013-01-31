@@ -1,4 +1,9 @@
-## Changes between 1.0.0 and 1.1.0
+## Changes between 1.1.0-beta2 and 1.1.0-beta3
+
+No changes yet.
+
+
+## Changes between 1.1.0-beta1 and 1.1.0-beta2
 
 ### SASL (Authentication) Support
 
@@ -26,6 +31,9 @@ to instantiate *auth descriptor* and pass it explicitly, like so:
                                                                   :aut-descriptor ad)))
 ```
 
+
+
+## Changes between 1.0.0 and 1.1.0-beta1
 
 ### Blocking Deref for Futures
 
