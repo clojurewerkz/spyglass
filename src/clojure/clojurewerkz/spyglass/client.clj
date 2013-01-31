@@ -179,10 +179,14 @@
 (defn gets
   ([^MemcachedClient client ^String key]
      (let [response (.gets client key)]
-       {:value (.getValue response) :cas (.getCas response)}))
+       {:value (when response
+                 (.getValue response)) :cas (when response
+                                              (.getCas response))}))
   ([^MemcachedClient client ^String key transcoder]
      (let [response (.gets client key transcoder)]
-       {:value (.getValue response) :cas (.getCas response)})))
+       {:value (when response
+                 (.getValue response)) :cas (when response
+                                              (.getCas response))})))
 
 (defn cas
   "Perform a synchronous CAS (compare-and-swap) operation."
