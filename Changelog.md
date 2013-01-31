@@ -1,6 +1,11 @@
 ## Changes between 1.1.0-beta2 and 1.1.0-beta3
 
-No changes yet.
+### Empty gets Responses
+
+`clojurewerkz.spyglass.client/gets` now correctly handles responses for
+keys that do not exist.
+
+GH issue: #4.
 
 
 ## Changes between 1.1.0-beta1 and 1.1.0-beta2
