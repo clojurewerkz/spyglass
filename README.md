@@ -23,7 +23,7 @@ As such, you can confidently use it, the API is small and locked down.
 
 ## Artifacts
 
-### The Most Recent Release
+### The Most Recent Stable Release
 
 With Leiningen:
 
@@ -36,6 +36,22 @@ With Maven:
       <groupId>clojurewerkz</groupId>
       <artifactId>spyglass</artifactId>
       <version>1.0.2</version>
+    </dependency>
+
+
+### The Most Recent Preview Release
+
+With Leiningen:
+
+    [clojurewerkz/spyglass "1.1.0-beta2"]
+
+
+With Maven:
+
+    <dependency>
+      <groupId>clojurewerkz</groupId>
+      <artifactId>spyglass</artifactId>
+      <version>1.1.0-beta2</version>
     </dependency>
 
 
