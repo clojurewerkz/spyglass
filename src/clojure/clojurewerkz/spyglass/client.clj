@@ -2,7 +2,8 @@
   (:refer-clojure :exclude [set get flush replace])
   (:import [net.spy.memcached MemcachedClient ConnectionFactory DefaultConnectionFactory BinaryConnectionFactory AddrUtil ConnectionFactoryBuilder FailureMode]
            net.spy.memcached.transcoders.Transcoder
-           [clojurewerkz.spyglass OperationFuture BulkGetFuture GetFuture]))
+           [clojurewerkz.spyglass OperationFuture BulkGetFuture GetFuture]
+           [net.spy.memcached.auth AuthDescriptor]))
 
 
 ;;
@@ -34,13 +35,15 @@
     (to-failure-mode (name input))))
 
 (defn- customize-factory
-  [^ConnectionFactory cf {:keys [failure-mode transcoder]}]
+  [^ConnectionFactory cf {:keys [failure-mode transcoder auth-descriptor]}]
   (let [;; Houston, we have a *FactoryFactory here!
         cfb (ConnectionFactoryBuilder. cf)]
     (when failure-mode
       (.setFailureMode cfb (to-failure-mode failure-mode)))
     (when transcoder
       (.setTranscoder cfb transcoder))
+    (when auth-descriptor
+      (.setAuthDescriptor cfb auth-descriptor))
     (.build cfb)))
 
 
@@ -49,19 +52,27 @@
 ;; API
 ;;
 
+(declare text-connection-factory bin-connection-factory)
+
 (defn text-connection
   "Returns a new text protocol client that will use the provided list of servers."
   ([^String server-list]
      (MemcachedClient. (DefaultConnectionFactory.) (servers server-list)))
   ([^String server-list ^DefaultConnectionFactory cf]
-     (MemcachedClient. cf (servers server-list))))
+     (MemcachedClient. cf (servers server-list)))
+  ([^String server-list ^String username ^String password]
+     (let [ad (AuthDescriptor/typical username password)]
+       (MemcachedClient. (text-connection-factory {:auth-descriptor ad})))))
 
 (defn bin-connection
   "Returns a new binary protocol client that will use the provided list of servers."
   ([^String server-list]
      (MemcachedClient. (BinaryConnectionFactory.) (servers server-list)))
   ([^String server-list ^BinaryConnectionFactory cf]
-     (MemcachedClient. cf (servers server-list))))
+     (MemcachedClient. cf (servers server-list)))
+  ([^String server-list ^String username ^String password]
+     (let [ad (AuthDescriptor/typical username password)]
+       (MemcachedClient. (bin-connection-factory {:auth-descriptor ad})))))
 
 
 (defn text-connection-factory

@@ -1,5 +1,32 @@
 ## Changes between 1.0.0 and 1.1.0
 
+### SASL (Authentication) Support
+
+`clojurewerkz.spyglass.client/text-connection` and `clojurewerkz.spyglass.client/bin-connection`
+now support credentials:
+
+(ns my.service
+  (:require [clojurewerkz.spyglass.client :as c]))
+
+;; uses credentials from environment variables, e.g. on Heroku:
+(c/text-connection "127.0.0.1:11211" (System/getenv "MEMCACHE_USERNAME")
+                                     (System/getenv "MEMCACHE_PASSWORD"))
+
+When you need to fine tune things and want to use a custom connection factory, you need
+to instantiate *auth descriptor* and pass it explicitly, like so:
+
+``` clojure
+(ns my.service
+  (:require [clojurewerkz.spyglass.client :as c])
+  (:import [net.spy.memcached.auth AuthDescriptor]))
+
+(let [ad (AuthDescriptor/typical (System/getenv "MEMCACHE_USERNAME")
+                                 (System/getenv "MEMCACHE_PASSWORD"))]
+  (c/text-connection "127.0.0.1:11211" (c/text-connection-factory :failure-mode :redistribute
+                                                                  :aut-descriptor ad)))
+```
+
+
 ### Blocking Deref for Futures
 
 Futures returned by async Spyglass operations now implement "blocking dereferencing":
