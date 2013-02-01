@@ -62,7 +62,7 @@
      (MemcachedClient. cf (servers server-list)))
   ([^String server-list ^String username ^String password]
      (let [ad (AuthDescriptor/typical username password)]
-       (MemcachedClient. (text-connection-factory {:auth-descriptor ad})))))
+       (MemcachedClient. (text-connection-factory :auth-descriptor ad)))))
 
 (defn bin-connection
   "Returns a new binary protocol client that will use the provided list of servers."
@@ -72,7 +72,7 @@
      (MemcachedClient. cf (servers server-list)))
   ([^String server-list ^String username ^String password]
      (let [ad (AuthDescriptor/typical username password)]
-       (MemcachedClient. (bin-connection-factory {:auth-descriptor ad})))))
+       (MemcachedClient. (bin-connection-factory :auth-descriptor ad)))))
 
 
 (defn text-connection-factory
