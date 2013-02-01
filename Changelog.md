@@ -1,5 +1,11 @@
 ## Changes between 1.1.0-beta2 and 1.1.0-beta3
 
+### Fix Authentication Support
+
+`clojurewerkz.spyglass.client/text-connection` and `clojurewerkz.spyglass.client/bin-connection`
+no longer fail when credentials are passed in.
+
+
 ### Empty gets Responses
 
 `clojurewerkz.spyglass.client/gets` now correctly handles responses for
