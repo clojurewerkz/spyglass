@@ -23,10 +23,11 @@ As such, you can confidently use it, the API is small and locked down.
 
 ## Artifacts
 
-Spyglass artifacts are released to Clojars. Spyglass relies on a recent SpyMemcached release so
-you may need to add [SpyMemcached repository](https://code.google.com/p/spymemcached/wiki/Maven) first:
+### Artifact Repositories
 
-### Dependencies
+Spyglass artifacts are [released to Clojars](https://clojars.org/clojurewerkz/spyglass). Spyglass relies on a recent SpyMemcached release so
+you may need to add [SpyMemcached repository](https://code.google.com/p/spymemcached/wiki/Maven) first.
+
 
 With Leiningen:
 
