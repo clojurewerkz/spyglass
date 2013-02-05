@@ -34,7 +34,7 @@
   (to-failure-mode [input]
     (to-failure-mode (name input))))
 
-(defn- customize-factory
+(defn- ^ConnectionFactory customize-factory
   [^ConnectionFactory cf {:keys [failure-mode transcoder auth-descriptor]}]
   (let [;; Houston, we have a *FactoryFactory here!
         cfb (ConnectionFactoryBuilder. cf)]
@@ -62,7 +62,7 @@
      (MemcachedClient. cf (servers server-list)))
   ([^String server-list ^String username ^String password]
      (let [ad (AuthDescriptor/typical username password)]
-       (MemcachedClient. (text-connection-factory :auth-descriptor ad)))))
+       (MemcachedClient. (text-connection-factory :auth-descriptor ad) (servers server-list)))))
 
 (defn bin-connection
   "Returns a new binary protocol client that will use the provided list of servers."
@@ -72,14 +72,14 @@
      (MemcachedClient. cf (servers server-list)))
   ([^String server-list ^String username ^String password]
      (let [ad (AuthDescriptor/typical username password)]
-       (MemcachedClient. (bin-connection-factory :auth-descriptor ad)))))
+       (MemcachedClient. (bin-connection-factory :auth-descriptor ad) (servers server-list)))))
 
 
-(defn text-connection-factory
+(defn ^ConnectionFactory text-connection-factory
   [& {:as opts}]
   (customize-factory (DefaultConnectionFactory.) opts))
 
-(defn bin-connection-factory
+(defn ^ConnectionFactory bin-connection-factory
   [& {:as opts}]
   (customize-factory (BinaryConnectionFactory.) opts))
 
