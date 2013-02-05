@@ -6,8 +6,7 @@
   :dependencies [[org.clojure/clojure        "1.4.0"]
                  [spy/spymemcached           "2.8.10"]
                  [couchbase/couchbase-client "1.0.3"]]
-  :repositories {"spy-memcached" {:url "http://files.couchbase.com/maven2/"
-                                  :checksum :ignore}
+  :repositories {"spy-memcached" {:url "http://files.couchbase.com/maven2/"}
                  "sonatype" {:url "http://oss.sonatype.org/content/repositories/releases"
                              :snapshots false
                              :releases {:checksum :fail :update :always}}
