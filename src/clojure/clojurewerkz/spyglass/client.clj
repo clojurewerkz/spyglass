@@ -1,6 +1,8 @@
 (ns clojurewerkz.spyglass.client
   (:refer-clojure :exclude [set get flush replace])
-  (:import [net.spy.memcached MemcachedClient ConnectionFactory DefaultConnectionFactory BinaryConnectionFactory AddrUtil ConnectionFactoryBuilder FailureMode]
+  (:import [net.spy.memcached MemcachedClient ConnectionFactory DefaultConnectionFactory
+            BinaryConnectionFactory AddrUtil ConnectionFactoryBuilder
+            FailureMode ConnectionFactoryBuilder$Protocol]
            net.spy.memcached.transcoders.Transcoder
            [clojurewerkz.spyglass OperationFuture BulkGetFuture GetFuture]
            [net.spy.memcached.auth AuthDescriptor]))
@@ -44,6 +46,11 @@
       (.setTranscoder cfb transcoder))
     (when auth-descriptor
       (.setAuthDescriptor cfb auth-descriptor))
+    ;; ConnectionFactoryBuilder will use various CF properties
+    ;; from the argument you give it but protocol is not one of
+    ;; them, so we set it up here explicitly. MK.
+    (when (instance? BinaryConnectionFactory cf)
+      (.setProtocol cfb ConnectionFactoryBuilder$Protocol/BINARY))
     (.build cfb)))
 
 
