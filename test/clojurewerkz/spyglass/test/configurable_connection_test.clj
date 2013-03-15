@@ -22,5 +22,5 @@
 
 (deftest test-connection-with-custom-failure-mode
   (let [conn (c/text-connection "127.0.0.1:11211" (c/text-connection-factory :failure-mode :redistribute))]
-    (c/set conn "a" 1000 "1")
-    (is (= (c/get conn "a") "1"))))
+    (c/set conn "abc000" 3000 "1")
+    (is (= (c/get conn "abc000") "1"))))
