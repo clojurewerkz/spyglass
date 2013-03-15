@@ -76,7 +76,7 @@ Our [test suite](https://github.com/clojurewerkz/spyglass/tree/master/test/) has
 
 
 
-## Supported Clojure versions
+## Supported Clojure Versions
 
 Spyglass is built from the ground up for Clojure 1.3 and up.
 
@@ -105,6 +105,6 @@ a pull request on Github.
 
 ## License
 
-Copyright (C) 2012 Michael S. Klishin, Alex Petrov
+Copyright (C) 2012-2013 Michael S. Klishin, Alex Petrov
 
 Distributed under the Eclipse Public License, the same as Clojure.
