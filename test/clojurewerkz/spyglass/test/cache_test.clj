@@ -104,3 +104,16 @@
     (let [c (sync-spyglass-cache-factory tc 1000 {"skey" "Value"})]
       (are [k v] (is (= v (lookup c k)))
            "skey" "Value"))))
+
+(deftest ^{:cache true}
+  test-lookup-with-async-spyglass-cache
+  (testing "that lookup returns a future thats drefs to nil for misses"
+    (let [c    (async-spyglass-cache-factory tc)]
+      (are [v] (is (nil? @(lookup c v)))
+           (str (UUID/randomUUID))
+           "missing-key"
+           (str (gensym "missing-key")))))
+  (testing "that lookup returns a future which derefs to cached values for hits"
+    (let [c (async-spyglass-cache-factory tc 1000 {"skey" "Value"})]
+      (are [k v] (is (= v @(lookup c k)))
+           "skey" "Value"))))
