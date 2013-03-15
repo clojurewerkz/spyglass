@@ -1,5 +1,25 @@
 ## Changes between 1.1.0-beta2 and 1.1.0-beta3
 
+Warning: `1.1.0-beta3` has **breaking changes** in `clojurewerkz.spyglass.cache`.
+
+### Clojure 1.5 By Default
+
+Spyglass now depends on `org.clojure/clojure` version `1.5.1`. It is
+still compatible with Clojure 1.3+ and if your `project.clj` depends
+on a different version, it will be used, but 1.5 is the default now.
+
+We encourage all users to upgrade to 1.5, it is a drop-in replacement
+for the majority of projects out there.
+
+### Asynchronous Cache Store
+
+Spyglass now ships both sync and async implementations of [clojure.core.cache](https://github.com/clojure/core.cache).
+
+To instantiate async store, use `clojurewerkz.spyglass.cache/async-spyglass-cache-factory`.
+`clojurewerkz.spyglass.cache/spyglass-cache-factory` was renamed to `clojurewerkz.spyglass.cache/sync-spyglass-cache-factory`.
+
+Contributed by [Joseph Wilk](https://github.com/josephwilk).
+
 ### Fix Authentication Support
 
 `clojurewerkz.spyglass.client/text-connection` and `clojurewerkz.spyglass.client/bin-connection`

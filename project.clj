@@ -3,7 +3,7 @@
   :url "http://github.com/clojurewerkz/spyglass"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure        "1.4.0"]
+  :dependencies [[org.clojure/clojure        "1.5.1"]
                  [spy/spymemcached           "2.8.10"]
                  [couchbase/couchbase-client "1.0.3"]]
   :repositories {"spy-memcached" {:url "http://files.couchbase.com/maven2/"}
@@ -18,10 +18,12 @@
   :javac-options     ["-target" "1.6" "-source" "1.6"]  
   :warn-on-reflection true
   :profiles       {:1.3 {:dependencies [[org.clojure/clojure "1.3.0"]]}
-                   :1.5 {:dependencies [[org.clojure/clojure "1.5.0-RC4"]]}
+                   :1.4 {:dependencies [[org.clojure/clojure "1.4.0"]]}
+                   :1.6 {:dependencies [[org.clojure/clojure "1.6.0-master-SNAPSHOT"]]}
+                   :master {:dependencies [[org.clojure/clojure "1.6.0-master-SNAPSHOT"]]}
                    :dev {:resource-paths ["test/resources"]
                          :dependencies [[org.clojure/core.cache "0.6.2" :exclusions [org.clojure/clojure]]]
-                         :plugins [[codox "0.6.3"]]
+                         :plugins [[codox "0.6.4"]]
                          :codox {:sources ["src/clojure"]
                                  :output-dir "doc/api"}}}
   :aliases        {"all" ["with-profile" "dev:1.3,dev:1.5,dev"]}
