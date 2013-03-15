@@ -52,33 +52,18 @@ With Maven:
 </repositories>
 ```
 
-### The Most Recent Stable Release
+### The Most Recent Release
 
 With Leiningen:
 
-    [clojurewerkz/spyglass "1.0.2"]
+    [clojurewerkz/spyglass "1.1.0-beta3"]
 
 With Maven:
 
     <dependency>
       <groupId>clojurewerkz</groupId>
       <artifactId>spyglass</artifactId>
-      <version>1.0.2</version>
-    </dependency>
-
-
-### The Most Recent Preview Release
-
-With Leiningen:
-
-    [clojurewerkz/spyglass "1.1.0-beta2"]
-
-With Maven:
-
-    <dependency>
-      <groupId>clojurewerkz</groupId>
-      <artifactId>spyglass</artifactId>
-      <version>1.1.0-beta2</version>
+      <version>1.1.0-beta3</version>
     </dependency>
 
 
