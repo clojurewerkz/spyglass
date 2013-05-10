@@ -8,6 +8,8 @@
 (def tc (c/text-connection "localhost:11211"))
 (def bc (c/bin-connection  "localhost:11211"))
 
+(c/set-log-level! "WARNING")
+
 (deftest test-set-then-get
   (testing "with the text protocol"
     (are [k v]

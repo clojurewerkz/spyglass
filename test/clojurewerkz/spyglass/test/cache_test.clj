@@ -1,10 +1,11 @@
 (ns clojurewerkz.spyglass.test.cache-test
-  (:require [clojurewerkz.spyglass.client :as kv])
+  (:require [clojurewerkz.spyglass.client :as c])
   (:use clojure.core.cache clojure.test clojurewerkz.spyglass.cache)
   (:import [clojure.core.cache BasicCache FIFOCache LRUCache TTLCache]
            java.util.UUID))
 
-(def tc (kv/text-connection "localhost:11211"))
+(def tc (c/text-connection "localhost:11211"))
+(c/set-log-level! "WARNING")
 
 (deftest ^{:cache true}
   test-has?-with-basic-cache
@@ -73,9 +74,9 @@
 ;;
 
 (use-fixtures :each (fn [f]
-                      (kv/flush tc)
+                      (c/flush tc)
                       (f)
-                      (kv/flush tc)))
+                      (c/flush tc)))
 
 
 (deftest ^{:cache true}

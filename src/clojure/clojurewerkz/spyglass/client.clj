@@ -1,4 +1,5 @@
 (ns clojurewerkz.spyglass.client
+  "Key Memcached client operations"
   (:refer-clojure :exclude [set get flush replace])
   (:import [net.spy.memcached MemcachedClient ConnectionFactory DefaultConnectionFactory
             BinaryConnectionFactory AddrUtil ConnectionFactoryBuilder
@@ -232,3 +233,24 @@
      (.shutdown client))
   ([^MemcachedClient client ^long timeout ^java.util.concurrent.TimeUnit time-unit]
      (.shutdown client timeout time-unit)))
+
+(defn set-log-level!
+  "Sets log level, assuming JDK logger (that is, not Log4J) is used.
+
+   Valid log levels:
+
+     * \"SEVERE\"
+     * \"WARNING\"
+     * \"INFO\"
+     * \"CONFIG\"
+     * \"FINE\"
+     * \"FINER\"
+     * \"FINEST\"
+
+  For more information about JDK loggers, see JDK documentation at
+  http://docs.oracle.com/javase/7/docs/api/java/util/logging/Logger.html"
+  [level]
+  (let [lgr (java.util.logging.Logger/getLogger "net.spy.memcached")
+        lvl (java.util.logging.Level/parse (-> level clojure.core/name .toUpperCase))]
+    (.setLevel lgr lvl)
+    lgr))

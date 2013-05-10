@@ -3,6 +3,7 @@
   (:use clojure.test)
   (:import [net.spy.memcached FailureMode]))
 
+(c/set-log-level! "WARNING")
 
 (deftest test-to-failure-mode
   (are [alias mode] (is (= (c/to-failure-mode alias) mode))

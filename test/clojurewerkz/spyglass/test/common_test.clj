@@ -10,7 +10,7 @@
 
 (def tc (c/text-connection "localhost:11211"))
 (def bc (c/bin-connection  "localhost:11211"))
-
+(c/set-log-level! "WARNING")
 
 ;;
 ;; Tests ported from https://github.com/dustin/memcached-test/blob/master/testClient.py
