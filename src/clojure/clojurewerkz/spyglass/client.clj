@@ -6,7 +6,7 @@
             FailureMode ConnectionFactoryBuilder$Protocol]
            net.spy.memcached.transcoders.Transcoder
            [clojurewerkz.spyglass OperationFuture BulkGetFuture GetFuture]
-           [net.spy.memcached.auth AuthDescriptor]))
+           [net.spy.memcached.auth AuthDescriptor PlainCallbackHandler]))
 
 
 ;;
@@ -72,6 +72,16 @@
      (let [ad (AuthDescriptor/typical username password)]
        (MemcachedClient. (text-connection-factory :auth-descriptor ad) (servers server-list)))))
 
+(defn auth-descriptor
+  ([^String username ^String password]
+     (AuthDescriptor/typical username password))
+  ([^String username ^String password mechanism]
+     (if-not (contains? #{:plain :cram-md5} mechanism)
+       (auth-descriptor)
+       (AuthDescriptor. (into-array java.lang.String
+                                    [(clojure.string/upper-case (name mechanism))])
+                        (PlainCallbackHandler. username password)))))
+
 (defn bin-connection
   "Returns a new binary protocol client that will use the provided list of servers."
   ([^String server-list]
@@ -79,9 +89,11 @@
   ([^String server-list ^BinaryConnectionFactory cf]
      (MemcachedClient. cf (servers server-list)))
   ([^String server-list ^String username ^String password]
-     (let [ad (AuthDescriptor/typical username password)]
+     (let [ad (auth-descriptor username password)]
+       (MemcachedClient. (bin-connection-factory :auth-descriptor ad) (servers server-list))))
+  ([^String server-list ^String username ^String password auth-type]
+     (let [ad (auth-descriptor username password auth-type)]
        (MemcachedClient. (bin-connection-factory :auth-descriptor ad) (servers server-list)))))
-
 
 (defn ^ConnectionFactory text-connection-factory
   [& {:as opts}]
@@ -90,7 +102,6 @@
 (defn ^ConnectionFactory bin-connection-factory
   [& {:as opts}]
   (customize-factory (BinaryConnectionFactory.) opts))
-
 
 (defn ^clojurewerkz.spyglass.OperationFuture flush
   "Flush all caches from all servers. One-arity version flushes all caches
