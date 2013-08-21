@@ -56,14 +56,14 @@ With Maven:
 
 With Leiningen:
 
-    [clojurewerkz/spyglass "1.1.0-beta3"]
+    [clojurewerkz/spyglass "1.1.0"]
 
 With Maven:
 
     <dependency>
       <groupId>clojurewerkz</groupId>
       <artifactId>spyglass</artifactId>
-      <version>1.1.0-beta3</version>
+      <version>1.1.0</version>
     </dependency>
 
 
