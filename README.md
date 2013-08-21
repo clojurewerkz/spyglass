@@ -78,7 +78,7 @@ Our [test suite](https://github.com/clojurewerkz/spyglass/tree/master/test/) has
 
 ## Supported Clojure Versions
 
-Spyglass is built from the ground up for Clojure 1.3 and up.
+Spyglass requires Clojure 1.4+.
 
 
 

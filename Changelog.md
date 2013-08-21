@@ -1,3 +1,27 @@
+## Changes between 1.1.0-beta3 and 1.1.0
+
+### Clojure 1.4 Requirement
+
+Spyglass `1.1.0` **drops support for Clojure 1.3**.
+
+
+### Heroku Add-on Support
+
+By using SpyMemcached `2.8.9`, you now can use Spyglass with Heroku
+Memcached add-ons:
+
+``` clojure
+(defproject my-great-project "0.1.0-SNAPSHOT"
+  :dependencies [[org.clojure/clojure "1.5.1"]
+                 [clojurewerkz/spyglass "1.1.0-beta6-SNAPSHOT"
+                  :exclusions [spy/spymemcached]]
+                 [spy/spymemcached "2.8.9"]]
+  :repositories {"spy-memcached" {:url "http://files.couchbase.com/maven2/"}})
+```
+
+Contributed by Connor Mendenhall.
+
+
 ## Changes between 1.1.0-beta2 and 1.1.0-beta3
 
 Warning: `1.1.0-beta3` has **breaking changes** in `clojurewerkz.spyglass.cache`.
