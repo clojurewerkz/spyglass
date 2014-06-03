@@ -22,7 +22,7 @@
                    :master {:dependencies [[org.clojure/clojure "1.7.0-master-SNAPSHOT"]]}
                    :dev {:resource-paths ["test/resources"]
                          :dependencies [[org.clojure/core.cache "0.6.2" :exclusions [org.clojure/clojure]]]
-                         :plugins [[codox "0.8.5"]]
+                         :plugins [[codox "0.8.8"]]
                          :codox {:sources ["src/clojure"]
                                  :output-dir "doc/api"}}}
   :aliases        {"all" ["with-profile" "dev:dev,1.4:dev,1.6:dev,master"]}
