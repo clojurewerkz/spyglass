@@ -17,8 +17,7 @@
   :java-source-paths ["src/java"]
   :javac-options     ["-target" "1.6" "-source" "1.6"]  
   :warn-on-reflection true
-  :profiles       {:1.4 {:dependencies [[org.clojure/clojure "1.4.0"]]}
-                   :1.5 {:dependencies [[org.clojure/clojure "1.5.1"]]}
+  :profiles       {:1.5 {:dependencies [[org.clojure/clojure "1.5.1"]]}
                    :1.7 {:dependencies [[org.clojure/clojure "1.7.0-alpha4"]]}
                    :master {:dependencies [[org.clojure/clojure "1.7.0-master-SNAPSHOT"]]}
                    :dev {:resource-paths ["test/resources"]
@@ -26,7 +25,7 @@
                          :plugins [[codox "0.8.10"]]
                          :codox {:sources ["src/clojure"]
                                  :output-dir "doc/api"}}}
-  :aliases        {"all" ["with-profile" "dev:dev,1.4:dev,1.6:dev,master"]}
+  :aliases        {"all" ["with-profile" "dev:dev,1.5:dev,master"]}
   :test-selectors {:default     (fn [m]
                                   (and (not (:couchbase m))))
                    :focus         :focus
