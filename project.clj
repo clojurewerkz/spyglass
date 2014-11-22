@@ -3,7 +3,7 @@
   :url "http://github.com/clojurewerkz/spyglass"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure        "1.5.1"]
+  :dependencies [[org.clojure/clojure        "1.6.0"]
                  [spy/spymemcached           "2.8.10"]
                  [couchbase/couchbase-client "1.0.3"]]
   :repositories {"spy-memcached" {:url "http://files.couchbase.com/maven2/"}
