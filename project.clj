@@ -3,9 +3,9 @@
   :url "http://github.com/clojurewerkz/spyglass"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure        "1.6.0"]
-                 [spy/spymemcached           "2.8.10"]
-                 [couchbase/couchbase-client "1.0.3"]]
+  :dependencies [[org.clojure/clojure "1.6.0"]
+                 [net.spy/spymemcached "2.11.4"]
+                 [com.couchbase.client/java-client "2.0.0"]]
   :repositories {"spy-memcached" {:url "http://files.couchbase.com/maven2/"}
                  "sonatype" {:url "http://oss.sonatype.org/content/repositories/releases"
                              :snapshots false
@@ -15,7 +15,7 @@
                                        :releases {:checksum :fail :update :always}}}
   :source-paths      ["src/clojure"]
   :java-source-paths ["src/java"]
-  :javac-options     ["-target" "1.6" "-source" "1.6"]  
+  :javac-options     ["-target" "1.6" "-source" "1.6"]
   :warn-on-reflection true
   :profiles       {:1.5 {:dependencies [[org.clojure/clojure "1.5.1"]]}
                    :1.7 {:dependencies [[org.clojure/clojure "1.7.0-alpha4"]]}

@@ -54,9 +54,7 @@
   (testing "with the text protocol"
     (are [k v]
          (do (c/set tc k 10 v)
-             ;; touch is not supported by the text protocol
-             (is (thrown? UnsupportedOperationException
-                          @(c/touch tc k 4))))
+             (is @(c/touch tc k 4)))
          "s-key" "s-value"
          "l-key" 100000
          "kw-key" :memcached
