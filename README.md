@@ -25,32 +25,7 @@ As such, you can confidently use it, the API is small and locked down.
 
 ### Artifact Repositories
 
-Spyglass artifacts are [released to Clojars](https://clojars.org/clojurewerkz/spyglass). Spyglass relies on a recent SpyMemcached release so
-you may need to add [SpyMemcached repository](https://code.google.com/p/spymemcached/wiki/Maven) first.
-
-
-With Leiningen:
-
-``` clojure
-;; in project.clj
-:repositories {"spy-memcached" {:url "http://files.couchbase.com/maven2/"}}
-```
-
-With Maven:
-
-``` xml
-<repositories>
-  <repository>
-    <id>spy</id>
-    <name>Spy Repository</name>
-    <layout>default</layout>
-    <url>http://files.couchbase.com/maven2/</url>
-    <snapshots>
-      <enabled>false</enabled>
-    </snapshots>
-  </repository>
-</repositories>
-```
+Spyglass artifacts are [released to Clojars](https://clojars.org/clojurewerkz/spyglass).
 
 ### The Most Recent Release
 
