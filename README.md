@@ -80,6 +80,6 @@ a pull request on Github.
 
 ## License
 
-Copyright (C) 2012-2014 [Michael S. Klishin](http://twitter.com/michaelklishin), Alex Petrov
+Copyright (C) 2012-2016 [Michael S. Klishin](http://twitter.com/michaelklishin), Alex Petrov
 
 Distributed under the [Eclipse Public License](http://www.eclipse.org/legal/epl-v10.html), the same as Clojure.
