@@ -65,7 +65,9 @@ Spyglass requires Clojure 1.4+.
 
 CI is hosted by [travis-ci.org](http://travis-ci.org)
 
+## Dependencies
 
+[![Dependencies Status](https://jarkeeper.com/clojurewerkz/spyglass/status.png)](https://jarkeeper.com/clojurewerkz/spyglass)
 
 ## Development
 
