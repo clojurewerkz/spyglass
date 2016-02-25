@@ -3,9 +3,10 @@
   :url "http://github.com/clojurewerkz/spyglass"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.6.0"]
-                 [net.spy/spymemcached "2.11.4"]
-                 [com.couchbase.client/java-client "2.0.0"]]
+  :dependencies [
+                 ;[org.clojure/clojure "1.6.0"]
+                 [net.spy/spymemcached "2.12.0"]
+                 [com.couchbase.client/java-client "2.2.4"]]
   :repositories {"sonatype" {:url "http://oss.sonatype.org/content/repositories/releases"
                              :snapshots false
                              :releases {:checksum :fail :update :always}}
@@ -15,7 +16,8 @@
   :source-paths      ["src/clojure"]
   :java-source-paths ["src/java"]
   :javac-options     ["-target" "1.8" "-source" "1.8"]
-  :warn-on-reflection true
+  :global-vars {*warn-on-reflection* true
+                *assert* false}
   :profiles       {:1.5 {:dependencies [[org.clojure/clojure "1.5.1"]]}
                    :1.7 {:dependencies [[org.clojure/clojure "1.7.0"]]}
                    :master {:dependencies [[org.clojure/clojure "1.8.0"]]}
