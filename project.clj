@@ -14,11 +14,11 @@
                                        :releases {:checksum :fail :update :always}}}
   :source-paths      ["src/clojure"]
   :java-source-paths ["src/java"]
-  :javac-options     ["-target" "1.6" "-source" "1.6"]
+  :javac-options     ["-target" "1.8" "-source" "1.8"]
   :warn-on-reflection true
   :profiles       {:1.5 {:dependencies [[org.clojure/clojure "1.5.1"]]}
                    :1.7 {:dependencies [[org.clojure/clojure "1.7.0"]]}
-                   :master {:dependencies [[org.clojure/clojure "1.8.0-master-SNAPSHOT"]]}
+                   :master {:dependencies [[org.clojure/clojure "1.8.0"]]}
                    :dev {:resource-paths ["test/resources"]
                          :dependencies [[org.clojure/core.cache "0.6.2" :exclusions [org.clojure/clojure]]]
                          :plugins [[codox "0.8.10"]]
