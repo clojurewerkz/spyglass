@@ -4,7 +4,10 @@
   (:import [clojure.core.cache BasicCache FIFOCache LRUCache TTLCache]
            java.util.UUID))
 
-(def tc (c/text-connection "localhost:11211"))
+(def memcached-host (or (System/getenv "MEMCACHED_HOST")
+                        "localhost:11211"))
+
+(def tc (c/text-connection memcached-host))
 (c/set-log-level! "WARNING")
 
 (deftest ^{:cache true}

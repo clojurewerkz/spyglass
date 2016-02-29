@@ -4,9 +4,11 @@
 
 (def ci? (System/getenv "CI"))
 
+(def memcached-host (or (System/getenv "MEMCACHED_HOST")
+                        "localhost:11211"))
 
-(def tc (c/text-connection "localhost:11211"))
-(def bc (c/bin-connection  "localhost:11211"))
+(def tc (c/text-connection memcached-host))
+(def bc (c/bin-connection  memcached-host))
 
 (c/set-log-level! "WARNING")
 
