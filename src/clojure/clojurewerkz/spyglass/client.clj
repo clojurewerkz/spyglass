@@ -4,7 +4,7 @@
   (:import [net.spy.memcached MemcachedClient ConnectionFactory DefaultConnectionFactory
             BinaryConnectionFactory AddrUtil ConnectionFactoryBuilder
             FailureMode ConnectionFactoryBuilder$Protocol]
-           net.spy.memcached.transcoders.Transcoder
+           [net.spy.memcached.transcoders Transcoder SerializingTranscoder]
            [clojurewerkz.spyglass OperationFuture BulkGetFuture GetFuture]
            [net.spy.memcached.auth AuthDescriptor PlainCallbackHandler]))
 
@@ -12,8 +12,6 @@
 ;;
 ;; Implementation
 ;;
-
-
 (defn- servers
   [^String server-list]
   (AddrUtil/getAddresses server-list))
@@ -43,8 +41,10 @@
         cfb (ConnectionFactoryBuilder. cf)]
     (when failure-mode
       (.setFailureMode cfb (to-failure-mode failure-mode)))
-    (when transcoder
-      (.setTranscoder cfb transcoder))
+    (if transcoder
+      (.setTranscoder cfb transcoder)
+      ;;otherwise use default serializer
+      (.setTranscoder cfb (SerializingTranscoder.)))
     (when auth-descriptor
       (.setAuthDescriptor cfb auth-descriptor))
     ;; ConnectionFactoryBuilder will use various CF properties
