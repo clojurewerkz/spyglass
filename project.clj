@@ -5,8 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [net.spy/spymemcached "2.12.0"]
-                 [com.couchbase.client/java-client "2.2.4"]
-                 [com.taoensso/nippy "2.11.1"]]
+                 [com.couchbase.client/java-client "2.2.4"]]
   :repositories {"sonatype" {:url "http://oss.sonatype.org/content/repositories/releases"
                              :snapshots false
                              :releases {:checksum :fail :update :always}}
