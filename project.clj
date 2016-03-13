@@ -31,3 +31,4 @@
                    :focus         :focus
                    :couchbase     :couchbase
                    :all           (constantly true)})
+
