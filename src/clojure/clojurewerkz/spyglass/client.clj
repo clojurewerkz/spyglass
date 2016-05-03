@@ -36,7 +36,7 @@
     (to-failure-mode (name input))))
 
 (defn- ^ConnectionFactory customize-factory
-  [^ConnectionFactory cf {:keys [failure-mode transcoder auth-descriptor]}]
+  [^ConnectionFactory cf {:keys [failure-mode transcoder auth-descriptor timeout-exception-threshold]}]
   (let [;; Houston, we have a *FactoryFactory here!
         cfb (ConnectionFactoryBuilder. cf)]
     (when failure-mode
@@ -47,6 +47,8 @@
       (.setTranscoder cfb (SerializingTranscoder.)))
     (when auth-descriptor
       (.setAuthDescriptor cfb auth-descriptor))
+    (when timeout-exception-threshold
+      (.setTimeoutExceptionThreshold cfb timeout-exception-threshold))
     ;; ConnectionFactoryBuilder will use various CF properties
     ;; from the argument you give it but protocol is not one of
     ;; them, so we set it up here explicitly. MK.
