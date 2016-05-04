@@ -7,9 +7,8 @@ before_script:
   - if [[ "$STU" == "couchbase" ]]; then ./ci/scripts/setup_couchbase.sh; else ./ci/scripts/setup_memcached.sh; fi
 script: lein2 all test
 jdk:
-  - openjdk6
-  - openjdk7
-  - oraclejdk7
+  - openjdk8
+  - oraclejdk8
 services:
   - memcached
 branches:
