@@ -2,7 +2,7 @@
   "Key Memcached client operations"
   (:refer-clojure :exclude [set get flush replace])
   (:import [net.spy.memcached MemcachedClient ConnectionFactory DefaultConnectionFactory
-            BinaryConnectionFactory AddrUtil ConnectionFactoryBuilder
+            BinaryConnectionFactory KetamaConnectionFactory AddrUtil ConnectionFactoryBuilder
             FailureMode ConnectionFactoryBuilder$Protocol]
            [net.spy.memcached.transcoders Transcoder SerializingTranscoder]
            [clojurewerkz.spyglass OperationFuture BulkGetFuture GetFuture]
@@ -104,6 +104,10 @@
 (defn ^ConnectionFactory bin-connection-factory
   [& {:as opts}]
   (customize-factory (BinaryConnectionFactory.) opts))
+
+(defn ^ConnectionFactory ketama-connection-factory
+  [& {:as opts}]
+  (customize-factory (KetamaConnectionFactory.) opts))
 
 (defn ^clojurewerkz.spyglass.OperationFuture flush
   "Flush all caches from all servers. One-arity version flushes all caches

@@ -9,6 +9,7 @@
 
 (def tc (c/text-connection memcached-host))
 (def bc (c/bin-connection  memcached-host))
+(def kc (c/text-connection memcached-host (c/ketama-connection-factory)))
 
 (c/set-log-level! "WARNING")
 
@@ -26,6 +27,15 @@
       (are [k v]
            (do (c/set bc k 10 v)
                (is (= v (c/get bc k))))
+           "s-key" "s-value"
+           "l-key" 100000
+           "kw-key" :memcached
+           "ratio-key" 3/8)))
+  (when-not ci?
+    (testing "with ketama hashing"
+      (are [k v]
+           (do (c/set kc k 10 v)
+               (is (= v (c/get kc k))))
            "s-key" "s-value"
            "l-key" 100000
            "kw-key" :memcached
