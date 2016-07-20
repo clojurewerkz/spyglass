@@ -81,6 +81,30 @@
            "kw-key" :memcached
            "ratio-key" 3/8))))
 
+;; get-and-touch is only supported in binary protocol
+(deftest test-set-then-get-and-touch
+  (when-not ci?
+    (testing "with the binary protocol"
+      (are [k v]
+           (do (c/set bc k 10 v)
+               (is (= v (:value (c/get-and-touch bc k 10)))))
+           "s-key" "s-value"
+           "l-key" 100000
+           "kw-key" :memcached
+           "ratio-key" 3/8))))
+
+;; async-get-and-touch is only supported in binary protocol
+(deftest test-set-then-async-get-and-touch
+  (when-not ci?
+    (testing "with the binary protocol"
+      (are [k v]
+           (do (c/set bc k 10 v)
+               (is (= v (.getValue @(c/async-get-and-touch bc k 10)))))
+           "s-key" "s-value"
+           "l-key" 100000
+           "kw-key" :memcached
+           "ratio-key" 3/8))))
+
 (deftest test-async-multiget
   (testing "with the text protocol"
     (c/set tc "key1" 20 "a-value")
