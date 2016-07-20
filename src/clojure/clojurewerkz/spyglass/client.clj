@@ -3,7 +3,7 @@
   (:refer-clojure :exclude [set get flush replace])
   (:import [net.spy.memcached MemcachedClient ConnectionFactory DefaultConnectionFactory
             BinaryConnectionFactory KetamaConnectionFactory AddrUtil ConnectionFactoryBuilder
-            FailureMode ConnectionFactoryBuilder$Protocol]
+            FailureMode ConnectionFactoryBuilder$Protocol CASValue]
            [net.spy.memcached.transcoders Transcoder SerializingTranscoder]
            [clojurewerkz.spyglass OperationFuture BulkGetFuture GetFuture]
            [net.spy.memcached.auth AuthDescriptor PlainCallbackHandler]))
@@ -56,6 +56,11 @@
       (.setProtocol cfb ConnectionFactoryBuilder$Protocol/BINARY))
     (.build cfb)))
 
+(defn- cas-value->map
+  "Given a CASValue, transform it to a map with keys #{:cas :value}"
+  [^CASValue cas-value]
+    {:value (when cas-value (.getValue cas-value))
+     :cas   (when cas-value (.getCas   cas-value))})
 
 
 ;;
@@ -131,13 +136,6 @@
   ([^MemcachedClient client ^String key ^Transcoder transcoder]
      (.get client key transcoder)))
 
-(defn get-and-touch
-  "Get a single key and reset its expiration."
-  ([^MemcachedClient client ^String key ^long expiration]
-     (.getAndTouch client key expiration))
-  ([^MemcachedClient client ^String key ^long expiration ^Transcoder transcoder]
-     (.getAndTouch client key expiration transcoder)))
-
 (defn ^clojurewerkz.spyglass.GetFuture
   async-get
   "Get the given key asynchronously"
@@ -145,6 +143,20 @@
      (GetFuture. (.asyncGet client key)))
   ([^MemcachedClient client ^String key ^Transcoder transcoder]
      (GetFuture. (.asyncGet client key transcoder))))
+
+(defn get-and-touch
+  "Get a single key and reset its expiration."
+  ([^MemcachedClient client ^String key ^long expiration]
+     (cas-value->map (.getAndTouch client key expiration)))
+  ([^MemcachedClient client ^String key ^long expiration ^Transcoder transcoder]
+     (cas-value->map (.getAndTouch client key expiration transcoder))))
+
+(defn async-get-and-touch
+  "Get a single key and reset its expiration asynchronously"
+  ([^MemcachedClient client ^String key ^long expiration]
+     (OperationFuture. (.asyncGetAndTouch client key expiration)))
+  ([^MemcachedClient client ^String key ^long expiration ^Transcoder transcoder]
+     (OperationFuture. (.asyncGetAndTouch client key expiration transcoder))))
 
 (defn ^clojure.lang.IPersistentMap get-multi
   "Get the values for multiple keys from the cache. Returns a future that will return a mutable map of results."
@@ -202,16 +214,11 @@
      (.decr client key by default expiration)))
 
 (defn gets
+  "Gets (with CAS support) a single key."
   ([^MemcachedClient client ^String key]
-     (let [response (.gets client key)]
-       {:value (when response
-                 (.getValue response)) :cas (when response
-                                              (.getCas response))}))
+     (cas-value->map (.gets client key)))
   ([^MemcachedClient client ^String key transcoder]
-     (let [response (.gets client key transcoder)]
-       {:value (when response
-                 (.getValue response)) :cas (when response
-                                              (.getCas response))})))
+     (cas-value->map (.gets client key transcoder))))
 
 (defn cas
   "Perform a synchronous CAS (compare-and-swap) operation."
