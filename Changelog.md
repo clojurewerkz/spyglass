@@ -1,3 +1,28 @@
+## Changes between 1.2.0 and 1.3.0 (unreleased)
+
+No changes yet.
+
+
+## Changes between 1.1.0 and 1.2.0 (June 21st, 2017)
+
+### `async-get-and-touch`
+
+`async-get-and-touch` is a new function available for binary
+protocol connections.
+
+Contributed by Ryan Wilson.
+
+
+### Transcoder Support
+
+Contributed by Timo Sulg.
+
+
+### Clojure 1.8 by Default
+
+This project now depends on Clojure 1.8 by default.
+
+
 ## Changes between 1.1.0-beta3 and 1.1.0
 
 ### Clojure 1.4 Requirement
