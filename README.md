@@ -31,14 +31,14 @@ Spyglass artifacts are [released to Clojars](https://clojars.org/clojurewerkz/sp
 
 With Leiningen:
 
-    [clojurewerkz/spyglass "1.1.0"]
+    [clojurewerkz/spyglass "1.2.0"]
 
 With Maven:
 
     <dependency>
       <groupId>clojurewerkz</groupId>
       <artifactId>spyglass</artifactId>
-      <version>1.1.0</version>
+      <version>1.2.0</version>
     </dependency>
 
 
