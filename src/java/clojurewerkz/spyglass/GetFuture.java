@@ -19,6 +19,10 @@ public class GetFuture implements IDeref, IBlockingDeref{
     this.gf = gf;
   }
 
+  public net.spy.memcached.internal.GetFuture getOriginalFuture() {
+    return this.gf;
+  }
+
   public boolean cancel(boolean ign) {
     return gf.cancel(ign);
   }

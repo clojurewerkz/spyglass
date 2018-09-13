@@ -13,6 +13,12 @@
 
 (c/set-log-level! "WARNING")
 
+(deftest test-set-original-future
+  (let [^clojurewerkz.spyglass.OperationFuture set-future (c/set tc "s-key" 10 "s-value")
+        orig-future (.getOriginalFuture set-future)]
+    (is (instance? net.spy.memcached.internal.OperationFuture orig-future))
+    (is (= @set-future @orig-future))))
+
 (deftest test-set-then-get
   (testing "with the text protocol"
     (are [k v]
@@ -61,6 +67,11 @@
            "kw-key" :memcached
            "ratio-key" 3/8))))
 
+(deftest test-async-get-original-future
+  (let [async-get-future (c/async-get tc "s-key")
+        orig-future (.getOriginalFuture async-get-future)]
+    (is (instance? net.spy.memcached.internal.GetFuture orig-future))
+    (is (= @async-get-future @orig-future))))
 
 (deftest test-set-then-touch
   (testing "with the text protocol"
@@ -117,6 +128,12 @@
       (c/set bc "key2" 20 "b-value")
       (c/set bc "key3" 20 "c-value")
       (is (= {"key3" "c-value", "key2" "b-value", "key1" "a-value"} @(c/async-get-multi bc ["key1" "key2" "key3"]))))))
+
+(deftest test-async-multiget-original-future
+  (let [async-get-multi-future (c/async-get-multi tc ["key1" "key2"])
+        orig-future (.getOriginalFuture async-get-multi-future)]
+    (is (instance? net.spy.memcached.internal.BulkGetFuture orig-future))
+    (is (= @async-get-multi-future @orig-future))))
 
 (deftest test-gets-key-that-does-not-exist
   (testing "with the text protocol"
