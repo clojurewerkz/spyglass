@@ -16,6 +16,10 @@ import java.util.concurrent.TimeoutException;
 public class BulkGetFuture implements IDeref, IBlockingDeref{
   private net.spy.memcached.internal.BulkGetFuture bgf;
 
+  public net.spy.memcached.internal.BulkGetFuture getOriginalFuture() {
+    return this.bgf;
+  }
+
   public boolean cancel(boolean ign) {
     return bgf.cancel(ign);
   }
